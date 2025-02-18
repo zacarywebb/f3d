@@ -684,6 +684,11 @@ public:
       interactor.addBinding({ mod_t::NONE, "Up" }, "reload_current_file_group", "Others", std::bind(docString, "Reload current file group"));
       interactor.addBinding({ mod_t::NONE, "Down" }, "add_current_directories", "Others", std::bind(docString, "Add files from dir of current file"));
       interactor.addBinding({ mod_t::NONE, "F12" }, "take_screenshot", "Others", std::bind(docString, "Take a screenshot"));
+
+      //Add binding for removing file groups
+      interactor.addBinding({ mod_t::NONE, "R" }, "remove_file_groups", "Others", std::bind(docString, "Remove all file groups"));
+
+      
 #if F3D_MODULE_TINYFILEDIALOGS
       interactor.addBinding({ mod_t::CTRL, "O" }, "open_file_dialog", "Others", std::bind(docString, "Open File Dialog"));
 #endif
@@ -1400,6 +1405,15 @@ void F3DStarter::LoadFileGroup(
   options.ui.dropzone = this->Internals->LoadedFiles.empty();
   options.ui.filename_info = filenameInfo;
 }
+
+//ADDED RemoveFileGroups
+void F3DStarter::RemoveFileGroups()
+{
+    f3d::scene& scene = this->Internals->Engine->getScene();
+    scene.clear();
+    f3d::log::info("All file groups have been removed.");
+}
+
 
 //----------------------------------------------------------------------------
 void F3DStarter::Render()
